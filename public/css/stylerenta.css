@@ -1,0 +1,234 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f6f8;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.main-container {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #0b1c3d;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.sidebar .logo {
+    padding: 20px;
+    text-align: center;
+}
+
+.sidebar .logo img {
+    width: 120px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .nav-item {
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar .nav-item:hover {
+    background-color: #f4a62a;
+}
+
+.sidebar .active {
+    background-color: #f4a62a;
+}
+
+/* CONTENIDO */
+.content {
+    margin-left: 220px;
+    width: 100%;
+}
+
+/* TOPBAR */
+.topbar {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+.user {
+    position: relative;
+    cursor: pointer;
+}
+
+.user img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+/* DROPDOWN */
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.dropdown button {
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown button:hover {
+    background: #f5f5f5;
+}
+
+/* DASHBOARD */
+.dashboard {
+    padding: 20px;
+}
+
+/* TARJETA PRINCIPAL */
+.card {
+    border-radius: 12px !important;
+    border: none;
+}
+
+/* BOTÓN NARANJA */
+.btn-orange {
+    background-color: #f4a62a;
+    color: white;
+    border-radius: 12px;
+}
+
+.btn-orange:hover {
+    background-color: #e6951f;
+}
+
+/* TARJETA RESUMEN */
+.summary-card {
+    background-color: #2e6f3e;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 140px;
+}
+
+/* BUSCADOR */
+input.form-control {
+    border-radius: 10px;
+}
+
+.position-relative i {
+    color: #888;
+}
+
+/* TABLA */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #f8f9fa;
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.table td {
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* ICONOS ACCIONES */
+.bi-pencil {
+    cursor: pointer;
+}
+
+.bi-trash {
+    cursor: pointer;
+}
+
+/* PAGINACIÓN */
+.btn-sm {
+    border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    color: #777;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+   
+        /* INPUT LINEA */
+        .input-line {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            border-radius: 0;
+            background: transparent;
+        }
+
+        .input-line:focus {
+            box-shadow: none;
+            border-bottom: 2px solid #0b1c3d;
+        }
+
+        /* BOTON OSCURO */
+        .btn-dark-custom {
+            background-color: #0b1c3d;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .btn-dark-custom:hover {
+            background-color: #09142b;
+        }
+
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="/css/stylesadmin.css">
+     <link rel="stylesheet" href="/css/stylesinicio.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <!-- 🔥 CORREGIDO: quitar /public -->
+                <img src="/img/logoOscuro.png" alt="logo">
+            </div>
+
+            
+            <nav>
+                <a href="/inicioAdmin" class="nav-item active"><i class="bi bi-house-door"></i> Inicio</a>
+                <a href="/clientes" class="nav-item "><i class="bi bi-people"></i> Clientes</a>
+                <a href="/vehiculos" class="nav-item "><i class="bi bi-truck"></i> Vehículos</a>
+                <a href="/rentas" class="nav-item "><i class="bi bi-file-earmark-text"></i> Rentas</a>
+                <a href="/pagos" class="nav-item "><i class="bi bi-coin"></i> Pagos</a>
+                <a href="/reportes" class="nav-item "> <i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
+            </nav>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+        <div class="content">
+
+            <!-- HEADER -->
+            <header class="topbar">
+
+                <button id="menuToggle" class="menu-btn">☰</button>
+
+                <!-- 🔥 USER DINÁMICO -->
+                <div class="user" id="userMenu">
+                    <img src="/img/logoClaro.png" alt="user">
+
+                    <div class="dropdown" id="dropdownMenu">
+                        <button id="perfilBtn">👤 Mi perfil</button>
+                        <button id="configBtn">⚙️ Configuración</button>
+                        <button id="logoutBtn">🚪 Cerrar sesión</button>
+                    </div>
+                </div>
+
+            </header>
+
+            <!-- MAIN -->
+            <main class="dashboard">
+
+                <!-- 🔥 OPCIONAL: usuario dinámico -->
+                <h1>Bienvenido Administrador</h1>
+
+                <p>
+                    Gestiona tu flota, controla tus rentas y supervisa tus ingresos
+                    desde un solo lugar.
+                </p>
+
+                <img src="/img/logoClaro.png" class="logo-main" alt="logo">
+
+            </main>
+
+            <!-- FOOTER -->
+            <footer>
+                © 2026 Renta Express. Todos los derechos reservados.
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- JS -->
+    <script src="/js/menu.js"></script>
+
+</body>
+
+</html>

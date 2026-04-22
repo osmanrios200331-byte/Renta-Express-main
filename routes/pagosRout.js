@@ -1,0 +1,20 @@
+const express = require('express');
+const router = express.Router();
+
+// 🔐 Verificar sesión
+function verificarSesion(req, res, next) {
+    if (!req.session.user) return res.redirect('/');
+    next();
+}
+
+
+// ================= GET - Ver todas las rentas =================
+router.get('/', verificarSesion, (req, res) => {
+    res.render('pagos', {
+        user: req.session.user,
+        pagos: [],
+        total: 0
+    });
+});
+
+module.exports = router;

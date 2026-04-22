@@ -1,0 +1,118 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cliente</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Bootstrap JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div id="alertBienvenida" class="alert alert-success alert-dismissible fade show text-center" role="alert"
+        style="display:none;">
+        <strong>¡Bienvenido!</strong> Has iniciado sesión correctamente como cliente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+
+
+    <button class="d-lg-none position-fixed hamburger-btn" type="button" data-bs-toggle="collapse"
+        data-bs-target="#sidebarCollapse">
+        <img src="img/icon-hamburguesa.png" alt="Menú" class="hamburger-icon">
+    </button>
+
+    <div class="d-flex">
+        <!-- Barra lateral -->
+        <div class="sidebar min-vh-100 p-3 w-20 d-lg-block collapse" id="sidebarCollapse">
+            <!-- Título Cliente -->
+            <a class="d-flex text-decoration-none mt-3 mb-4 align-items-center text-white justify-content-center">
+                <span class="fs-4 d-none d-sm-inline">Cliente</span>
+            </a>
+            <ul class="nav nav-pills flex-column mt-4">
+                <!-- OSMAN -->
+                <li class="nav-item py-2">
+                    <a href="/inicioCliente" class="nav-link active text-white d-flex align-items-center">
+                        <img src="/img/icon-usuario.svg" alt="" class="icon-sidebar">
+                        <span class="fs-5 ms-2 d-none d-sm-inline">OSMAN</span>
+                    </a>
+                </li>
+                <!-- Asistencias -->
+                <li class="nav-item py-2">
+                    <a href="/asistenciasCliente" class="nav-link text-white d-flex align-items-center">
+                        <img src="/img/icon-asistencias.png" alt="" class="icon-sidebar">
+                        <span class="fs-5 ms-2 d-none d-sm-inline">Asistencias</span>
+                    </a>
+                </li>
+                <!-- Membresias -->
+                <li class="nav-item py-2">
+                    <a href="/membresiasCliente" class="nav-link text-white d-flex align-items-center">
+                        <img src="/img/icon-membresias.png" alt="" class="icon-sidebar">
+                        <span class="fs-5 ms-2 d-none d-sm-inline">Membresias</span>
+                    </a>
+                </li>
+                <!-- Salir --- solo con "/" vuelves a la ruta principal del index-->
+                <li class="nav-item py-2">
+                    <a href="/" class="nav-link text-white d-flex align-items-center">
+                        <img src="/img/icon-salir.svg" alt="" class="icon-sidebar">
+                        <span class="fs-5 ms-2 d-none d-sm-inline">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- 2 -->
+        <div class="flex-grow-1 p-4">
+            <h2 class="text-center pb-2 fw-bold" style="color: var(--color-fondo-primario);">
+                ¡Bienvenido al Panel del Cliente!
+            </h2>
+            <div class="text-center mb-4">
+                <p class="fs-5">Aquí podrás consultar tus asistencias al gimnasio, pagar tus membresías en línea y
+                    mantenerte al día con tus entrenamientos.</p>
+            </div>
+
+            <div id="carouselGym" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner rounded shadow">
+                    <div class="carousel-item active">
+                        <img src="/img/carousel1.jpeg" class="d-block w-100 img-fluid" alt="Ejercicio con pesas">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/carousel2.jpeg" class="d-block w-100 img-fluid" alt="Entrenamiento funcional">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/carousel3.jpeg" class="d-block w-100 img-fluid" alt="Persona ejercitándose">
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselGym" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselGym" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center p-2" style="background-color: var(--color-fondo-primario);">
+        &copy; 2025 Panel de Control. Todos los derechos reservados.
+    </footer> 
+    <script src="/js/loginalert.js"></script>
+
+
+</body>
+
+</html>

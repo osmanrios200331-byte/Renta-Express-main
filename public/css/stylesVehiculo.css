@@ -1,0 +1,212 @@
+/* ===== CONTENEDOR GENERAL ===== */
+
+.dashboard {
+  padding: 30px;
+  background: #f4f6f9;
+}
+
+/* ===== TITULO ===== */
+
+.dashboard h2 {
+  font-weight: bold;
+}
+
+.dashboard p {
+  color: #666;
+  margin-bottom: 0;
+}
+
+/* ===== BOTON NUEVO ===== */
+
+.btn-warning {
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: bold;
+}
+
+/* ===== TARJETAS ===== */
+
+.cards-vehiculos {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.card-box {
+  flex: 1;
+  min-width: 130px;
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.card-box h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.card-box p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* COLORES */
+.total {
+  background: #e9ecef;
+  color: #333;
+}
+
+.disponible {
+  background: #2e7d32;
+}
+
+.rentado {
+  background: #1565c0;
+}
+
+.mantenimiento {
+  background: #d4ac0d;
+}
+
+.inactivo {
+  background: #c62828;
+}
+
+/* ===== BUSCADOR ===== */
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-container i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 15px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 12px 10px 35px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-container input:focus {
+  border-color: #030c20;
+}
+
+/* BOTON FILTRO */
+
+.btn-filtrar {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #e9ecef;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.btn-filtrar:hover {
+  background: #d6d6d6;
+}
+
+/* ===== TABLA ===== */
+
+.table-responsive {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.table {
+  margin: 0;
+}
+
+.table th {
+  font-size: 13px;
+  font-weight: 600;
+  background: #f2f2f2;
+}
+
+.table td {
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* ===== ESTADOS ===== */
+
+.estado-disponible {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.estado-rentado {
+  color: #1565c0;
+  font-weight: bold;
+}
+
+.estado-mantenimiento {
+  color: #d4ac0d;
+  font-weight: bold;
+}
+
+.estado-inactivo {
+  color: #c62828;
+  font-weight: bold;
+}
+
+/* ===== BOTONES ACCIONES ===== */
+
+.table button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.table .btn-primary:hover {
+  color: #0d6efd;
+}
+
+.table .btn-danger:hover {
+  color: #dc3545;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+  .cards-vehiculos {
+    flex-direction: column;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+.sidebar .nav-item:hover {
+    background-color: #f4a62a;
+}
+}

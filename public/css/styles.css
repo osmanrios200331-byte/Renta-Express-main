@@ -1,0 +1,158 @@
+:root {
+  --color-fondo-primario: #1e3932;
+  --color-fondo-secundario: #3a5c50;
+  --color-enlace-activo: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Estructura principal */
+.sidebar {
+  background-color: var(--color-fondo-primario);
+}
+
+/* Estilos de iconos */
+.icon-sidebar {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+}
+
+/* Navegación */
+.nav-item {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+/* Enlace base */
+.nav-link {
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enlace activo general */
+.nav-link.active,
+.nav-pills .nav-link.active {
+  background-color: var(--color-fondo-secundario) !important;
+  border-left: 4px solid #b2dfdb !important;
+  color: white !important;
+  border-radius: 0.5rem;
+
+  /* Sombras y elevación */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Efecto hover básico para todas las tarjetas */
+.card {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto hover personalizado */
+.card-hover:hover {
+  background-color: #f8f9fa;
+}
+
+.card-hover-success:hover {
+  background-color: #d1e7dd;
+}
+
+.card-hover-danger:hover {
+  background-color: #f8d7da;
+}
+
+.card-hover-male:hover {
+  background-color: #cfe2ff;
+}
+
+.card-hover-female:hover {
+  background-color: #fce4ec;
+}
+
+.text-pink {
+  color: #e91e63;
+}
+
+.card-hover-routine:hover {
+  background-color: #fff3cd;
+}
+
+/* Botón hamburguesa */
+.hamburger-btn {
+  z-index: 1050;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--color-fondo-primario);
+  border: none;
+  border-radius: 4px;
+  top: 10px;
+  left: 10px;
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.hamburger-btn:hover {
+  background-color: var(--color-fondo-secundario);
+  border-color: var(--color-fondo-secundario);
+}
+
+/* Sidebar abierto */
+.sidebar.show {
+  transform: translateX(0);
+  padding-top: 60px;
+}
+
+/* Responsive para móviles */
+@media (max-width: 991.98px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar:not(.show) {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+    padding-top: 50px;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1039;
+    display: none;
+  }
+
+  .sidebar-backdrop.show {
+    display: block;
+  }
+/* Login  */
+.sidebar .nav-item:hover {
+    background-color: #f4a62a;
+}
+
+}
