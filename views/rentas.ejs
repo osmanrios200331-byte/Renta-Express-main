@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rentas</title>
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-icons.css">
 
-    
+
     <!-- Tus estilos -->
     <link rel="stylesheet" href="/css/stylesadmin.css">
     <link rel="stylesheet" href="/css/stylesinicio.css">
@@ -116,13 +116,12 @@
                     </div>
 
                     <!-- PAGINACIÓN -->
-                    <div class="d-flex justify-content-between mt-3">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
                         <small id="infoTabla">0 registros</small>
-                        <div>
-                            <button class="btn btn-sm btn-light border">‹</button>
-                            <button class="btn btn-sm btn-dark">1</button>
-                            <button class="btn btn-sm btn-light border">›</button>
-                        </div>
+                        <nav>
+                            <ul class="pagination mb-0">
+                            </ul>
+                        </nav>
                     </div>
 
                 </div>
@@ -138,66 +137,65 @@
 
     <!-- MODAL -->
     <div class="modal fade" id="modalNuevaRenta" tabindex="-1">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content p-3">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content p-3">
 
-            <h5 class="text-center fw-bold mb-4">Detalles Renta</h5>
+                <h5 class="text-center fw-bold mb-4">Detalles Renta</h5>
 
-            <div class="row g-3">
+                <div class="row g-3">
 
-                <!-- CLIENTE -->
-                <div class="col-md-6">
-                    <label class="form-label">Cliente</label>
-                    <select class="form-control" id="cliente">
-                        <option value="">Seleccionar cliente</option>
-                    </select>
+                    <!-- CLIENTE -->
+                    <div class="col-md-6">
+                        <label class="form-label">Cliente</label>
+                        <select class="form-control" id="cliente">
+                            <option value="">Seleccionar cliente</option>
+                        </select>
+                    </div>
+
+                    <!-- FECHA FIN -->
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha Fin</label>
+                        <input type="date" class="form-control" id="fechaFin">
+                    </div>
+
+                    <!-- VEHICULO -->
+                    <div class="col-md-6">
+                        <label class="form-label">Vehículo</label>
+                        <select class="form-control" id="vehiculo">
+                            <option value="">Seleccionar vehículo</option>
+                        </select>
+                    </div>
+
+                    <!-- TARIFA -->
+                    <div class="col-md-6">
+                        <label class="form-label">Tarifa Aplicada</label>
+                        <input type="number" class="form-control" id="tarifa">
+                    </div>
+
+                    <!-- FECHA INICIO -->
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha Inicio</label>
+                        <input type="date" class="form-control" id="fechaInicio">
+                    </div>
+
+                    <!-- TOTAL -->
+                    <div class="col-md-6">
+                        <label class="form-label">Valor Total</label>
+                        <input type="number" class="form-control" id="total" readonly>
+                    </div>
+
                 </div>
 
-                <!-- FECHA FIN -->
-                <div class="col-md-6">
-                    <label class="form-label">Fecha Fin</label>
-                    <input type="date" class="form-control" id="fechaFin">
-                </div>
-
-                <!-- VEHICULO -->
-                <div class="col-md-6">
-                    <label class="form-label">Vehículo</label>
-                    <select class="form-control" id="vehiculo">
-                        <option value="">Seleccionar vehículo</option>
-                    </select>
-                </div>
-
-                <!-- TARIFA -->
-                <div class="col-md-6">
-                    <label class="form-label">Tarifa Aplicada</label>
-                    <input type="number" class="form-control" id="tarifa">
-                </div>
-
-                <!-- FECHA INICIO -->
-                <div class="col-md-6">
-                    <label class="form-label">Fecha Inicio</label>
-                    <input type="date" class="form-control" id="fechaInicio">
-                </div>
-
-                <!-- TOTAL -->
-                <div class="col-md-6">
-                    <label class="form-label">Valor Total</label>
-                    <input type="number" class="form-control" id="total" readonly>
+                <div class="text-center mt-4">
+                    <button class="btn px-5 fw-bold" style="background:#0b1c3d; color:white; border-radius:10px;"
+                        id="btnGuardarRenta">
+                        Guardar
+                    </button>
                 </div>
 
             </div>
-
-            <div class="text-center mt-4">
-                <button class="btn px-5 fw-bold"
-                    style="background:#0b1c3d; color:white; border-radius:10px;"
-                    id="btnGuardarRenta">
-                    Guardar
-                </button>
-            </div>
-
         </div>
     </div>
-</div>
     <!-- JS -->
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/menu.js"></script>

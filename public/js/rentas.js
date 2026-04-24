@@ -7,6 +7,10 @@ let clientesGlobal = [];
 let vehiculosGlobal = [];
 let editandoId = null;
 
+// ================= PAGINACIÓN =================
+const REGISTROS_POR_PAGINA = 10;
+let paginaActual = 1;
+
 // ================= FECHA HOY =================
 function obtenerFechaHoy() {
     return new Date().toISOString().split("T")[0];
@@ -19,6 +23,7 @@ async function obtenerRentas() {
         const data = await res.json();
 
         rentasGlobal = data;
+        paginaActual = 1;
         renderRentas(rentasGlobal);
         actualizarContador();
 
@@ -32,10 +37,15 @@ function renderRentas(lista) {
     const tabla = document.getElementById("tablaRentas");
     tabla.innerHTML = "";
 
-    lista.forEach(r => {
-        const cliente = obtenerNombreCliente(r.IdCliente);
+    const totalPaginas = Math.ceil(lista.length / REGISTROS_POR_PAGINA);
+    const inicio = (paginaActual - 1) * REGISTROS_POR_PAGINA;
+    const fin = inicio + REGISTROS_POR_PAGINA;
+    const paginados = lista.slice(inicio, fin);
+
+    paginados.forEach(r => {
+        const cliente  = obtenerNombreCliente(r.IdCliente);
         const vehiculo = obtenerNombreVehiculo(r.IdVehiculos);
-        const placa = obtenerPlacaVehiculo(r.IdVehiculos);
+        const placa    = obtenerPlacaVehiculo(r.IdVehiculos);
 
         const fechaInicio = r.FechaInicio ? new Date(r.FechaInicio).toLocaleDateString() : '';
         const fechaFin    = r.FechaFin    ? new Date(r.FechaFin).toLocaleDateString()    : '';
@@ -50,12 +60,48 @@ function renderRentas(lista) {
                 <td>${fechaFin}</td>
                 <td>$${Number(r.ValorTotal || 0).toLocaleString()}</td>
                 <td>
-                    <button class="btn btn-sm btn-warning" onclick="editar(${r.IdRenta})">✏️</button>
-                    <button class="btn btn-sm btn-danger" onclick="eliminar(${r.IdRenta})">🗑️</button>
+                    <button class="btn btn-sm btn-primary" onclick="editar(${r.IdRenta})"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminar(${r.IdRenta})"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
     });
+
+    renderPaginacion(totalPaginas);
+}
+
+// ================= PAGINACIÓN RENDER =================
+function renderPaginacion(totalPaginas) {
+    const ul = document.querySelector(".pagination");
+    if (!ul) return;
+
+    ul.innerHTML = `
+        <li class="page-item ${paginaActual === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual - 1}, event)">‹</a>
+        </li>
+    `;
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        ul.innerHTML += `
+            <li class="page-item ${i === paginaActual ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="cambiarPagina(${i}, event)">${i}</a>
+            </li>
+        `;
+    }
+
+    ul.innerHTML += `
+        <li class="page-item ${paginaActual === totalPaginas || totalPaginas === 0 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual + 1}, event)">›</a>
+        </li>
+    `;
+}
+
+function cambiarPagina(pagina, event) {
+    event.preventDefault();
+    const totalPaginas = Math.ceil(rentasGlobal.length / REGISTROS_POR_PAGINA);
+    if (pagina < 1 || pagina > totalPaginas) return;
+    paginaActual = pagina;
+    renderRentas(rentasGlobal);
 }
 
 // ================= HELPERS =================
@@ -157,9 +203,9 @@ function limpiarFormulario() {
 
 // ================= CALCULAR TOTAL =================
 function calcularTotal() {
-    const inicio   = new Date(document.getElementById("fechaInicio").value);
-    const fin      = new Date(document.getElementById("fechaFin").value);
-    const tarifa   = parseFloat(document.getElementById("tarifa").value) || 0;
+    const inicio = new Date(document.getElementById("fechaInicio").value);
+    const fin    = new Date(document.getElementById("fechaFin").value);
+    const tarifa = parseFloat(document.getElementById("tarifa").value) || 0;
 
     if (!fin || fin <= inicio) {
         document.getElementById("total").value = 0;
@@ -174,6 +220,8 @@ function calcularTotal() {
 function activarBuscador() {
     document.getElementById("buscadorRentas").addEventListener("input", function () {
         const valor = this.value.toLowerCase().trim();
+
+        paginaActual = 1;
 
         if (!valor) {
             renderRentas(rentasGlobal);
@@ -213,7 +261,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById("fechaInicio").value = obtenerFechaHoy();
 
-    // Auto-rellenar tarifa al seleccionar vehículo
     document.getElementById("vehiculo").addEventListener("change", function () {
         const selected   = this.options[this.selectedIndex];
         const tarifaData = selected.getAttribute("data-tarifa");
@@ -247,8 +294,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const datos = { IdCliente, IdVehiculos, FechaInicio, FechaFin, TarifaAplicada, ValorTotal };
 
-        console.log("📤 ENVIANDO:", datos);
-
         try {
             let res;
 
@@ -267,11 +312,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             const respuesta = await res.json();
-            console.log("📥 RESPUESTA:", respuesta);
 
             if (!res.ok) {
-                console.error("❌ ERROR BACKEND:", respuesta);
-                alert("❌ Error: " + respuesta.mensaje);
+                alert("Error: " + respuesta.mensaje);
                 return;
             }
 
@@ -284,7 +327,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             cargarVehiculos();
 
         } catch (error) {
-            console.error("❌ Error al guardar:", error);
+            console.error("Error al guardar:", error);
         }
     });
 
@@ -296,5 +339,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // ================= GLOBAL =================
-window.editar   = editar;
-window.eliminar = eliminar;
+window.editar        = editar;
+window.eliminar      = eliminar;
+window.cambiarPagina = cambiarPagina;

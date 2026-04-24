@@ -1,8 +1,11 @@
-// 🔥 URL correcta de la API
-const API = "http://localhost:3000/api/clientes";
+const API = "/api/clientes";
 
 let editandoId = null;
 let clientesGlobal = [];
+
+// ================= PAGINACIÓN =================
+const REGISTROS_POR_PAGINA = 10;
+let paginaActual = 1;
 
 // ================= OBTENER CLIENTES =================
 async function obtenerClientes() {
@@ -14,10 +17,11 @@ async function obtenerClientes() {
         const data = await res.json();
 
         clientesGlobal = data;
+        paginaActual = 1;
         renderClientes(clientesGlobal);
 
     } catch (error) {
-        console.error("❌ Error al obtener clientes:", error);
+        console.error("Error al obtener clientes:", error);
     }
 }
 
@@ -26,7 +30,12 @@ function renderClientes(lista) {
     const tabla = document.getElementById("tablaClientes");
     tabla.innerHTML = "";
 
-    lista.forEach(c => {
+    const totalPaginas = Math.ceil(lista.length / REGISTROS_POR_PAGINA);
+    const inicio = (paginaActual - 1) * REGISTROS_POR_PAGINA;
+    const fin = inicio + REGISTROS_POR_PAGINA;
+    const paginados = lista.slice(inicio, fin);
+
+    paginados.forEach(c => {
         tabla.innerHTML += `
             <tr>
                 <td>${c.TipoDocumento || ''}</td>
@@ -37,12 +46,48 @@ function renderClientes(lista) {
                 <td>${c.Licencia || ''}</td>
                 <td>${c.FechaRegistro ? new Date(c.FechaRegistro).toLocaleDateString() : ''}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" onclick="editar(${c.IdCliente})">✏️</button>
-                    <button class="btn btn-sm btn-danger" onclick="eliminar(${c.IdCliente})">🗑️</button>
+                    <button class="btn btn-sm btn-primary" onclick="editar(${c.IdCliente})"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminar(${c.IdCliente})"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
     });
+
+    renderPaginacion(totalPaginas);
+}
+
+// ================= PAGINACIÓN RENDER =================
+function renderPaginacion(totalPaginas) {
+    const ul = document.querySelector(".pagination");
+    if (!ul) return;
+
+    ul.innerHTML = `
+        <li class="page-item ${paginaActual === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual - 1}, event)">‹</a>
+        </li>
+    `;
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        ul.innerHTML += `
+            <li class="page-item ${i === paginaActual ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="cambiarPagina(${i}, event)">${i}</a>
+            </li>
+        `;
+    }
+
+    ul.innerHTML += `
+        <li class="page-item ${paginaActual === totalPaginas || totalPaginas === 0 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual + 1}, event)">›</a>
+        </li>
+    `;
+}
+
+function cambiarPagina(pagina, event) {
+    event.preventDefault();
+    const totalPaginas = Math.ceil(clientesGlobal.length / REGISTROS_POR_PAGINA);
+    if (pagina < 1 || pagina > totalPaginas) return;
+    paginaActual = pagina;
+    renderClientes(clientesGlobal);
 }
 
 // ================= ABRIR MODAL =================
@@ -77,7 +122,7 @@ async function editar(id) {
         new bootstrap.Modal(document.getElementById("modalCliente")).show();
 
     } catch (error) {
-        console.error("❌ Error al editar:", error);
+        console.error("Error al editar:", error);
     }
 }
 
@@ -98,8 +143,6 @@ document.addEventListener("submit", async function (e) {
         Licencia: form.get("Licencia") || ""
     };
 
-    console.log("📤 ENVIANDO:", datos);
-
     try {
         let res;
 
@@ -119,10 +162,7 @@ document.addEventListener("submit", async function (e) {
 
         const respuesta = await res.json();
 
-        console.log("📥 RESPUESTA:", respuesta);
-
         if (!res.ok) {
-            console.error("❌ ERROR BACKEND:", respuesta);
             alert("Error al guardar cliente");
             return;
         }
@@ -137,7 +177,7 @@ document.addEventListener("submit", async function (e) {
         obtenerClientes();
 
     } catch (error) {
-        console.error("❌ Error al guardar:", error);
+        console.error("Error al guardar:", error);
     }
 });
 
@@ -153,7 +193,7 @@ async function eliminar(id) {
         obtenerClientes();
 
     } catch (error) {
-        console.error("❌ Error al eliminar:", error);
+        console.error("Error al eliminar:", error);
     }
 }
 
@@ -163,6 +203,8 @@ function activarBuscador() {
 
     buscador.addEventListener("input", function () {
         const valor = this.value.toLowerCase();
+
+        paginaActual = 1;
 
         const filtrados = clientesGlobal.filter(c =>
             (c.NombreCompleto || '').toLowerCase().includes(valor) ||
@@ -180,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ================= GLOBAL =================
-window.editar = editar;
-window.eliminar = eliminar;
-window.abrirModal = abrirModal;
+window.editar        = editar;
+window.eliminar      = eliminar;
+window.abrirModal    = abrirModal;
+window.cambiarPagina = cambiarPagina;

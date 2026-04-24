@@ -4,185 +4,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagos</title>
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <!-- Bootstrap -->
+    <title>Reportes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- CSS propio -->
     <link rel="stylesheet" href="/css/stylesadmin.css">
+    <link rel="stylesheet" href="/css/stylesinicio.css">
 </head>
 
 <body>
-    
+    <div class="main-container">
 
-<div class="main-container">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-        <div class="logo">
-            <img src="/img/logoOscuro.png" alt="logo">
-        </div>
-
-        <nav>
-            <a href="/inicioAdmin" class="nav-item active"><i class="bi bi-house-door"></i> Inicio</a>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/img/logoOscuro.png" alt="logo">
+            </div>
+            <nav>
+                <a href="/inicioAdmin" class="nav-item"><i class="bi bi-house-door"></i> Inicio</a>
                 <a href="/clientes" class="nav-item"><i class="bi bi-people"></i> Clientes</a>
                 <a href="/vehiculos" class="nav-item"><i class="bi bi-truck"></i> Vehículos</a>
                 <a href="/rentas" class="nav-item"><i class="bi bi-file-earmark-text"></i> Rentas</a>
                 <a href="/pagos" class="nav-item"><i class="bi bi-coin"></i> Pagos</a>
-                <a href="/reportes" class="nav-item"> <i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
-        </nav>
+                <a href="/reportes" class="nav-item active"><i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
+            </nav>
+        </aside>
 
-    </aside>
+        <!-- CONTENIDO -->
+        <div class="content">
 
-    <!-- CONTENIDO -->
-    <div class="content">
-
-        <!-- HEADER -->
-        <header class="topbar">
-            <button id="menuToggle" class="menu-btn">☰</button>
-
-            <div class="user" id="userMenu">
-                <img src="/img/logoClaro.png" alt="user">
-
-                <div class="dropdown" id="dropdownMenu">
-                    <button>👤 Mi perfil</button>
-                    <button>⚙️ Configuración</button>
-                    <button id="logoutBtn">🚪 Cerrar sesión</button>
+            <!-- HEADER -->
+            <header class="topbar">
+                <button id="menuToggle" class="menu-btn">☰</button>
+                <div class="user" id="userMenu">
+                    <img src="/img/logoClaro.png" alt="user">
+                    <div class="dropdown" id="dropdownMenu">
+                        <button>👤 Mi perfil</button>
+                        <button>⚙️ Configuración</button>
+                        <button id="logoutBtn">🚪 Cerrar sesión</button>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <!-- MAIN -->
-        <main class="dashboard">
+            <!-- MAIN -->
+            <main class="dashboard">
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2>Gestión de Pagos</h2>
-                    <p>Administra y consulta los pagos registrados.</p>
+                <!-- TITULO -->
+                <div class="mb-4">
+                    <h2>Reportes</h2>
+                    <p>Visualiza estadísticas y métricas del sistema.</p>
                 </div>
 
-                <button class="btn btn-warning" onclick="abrirModalPago()">
-                    + Nuevo Pago
-                </button>
-            </div>
+                <!-- TARJETAS RESUMEN -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm p-3 text-center">
+                            <h6 class="text-muted">Total Rentas</h6>
+                            <h3 id="totalRentas" class="fw-bold">0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm p-3 text-center">
+                            <h6 class="text-muted">Total Ingresos</h6>
+                            <h3 id="totalIngresos" class="fw-bold">$0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm p-3 text-center">
+                            <h6 class="text-muted">Total Pagos</h6>
+                            <h3 id="totalPagos" class="fw-bold">0</h3>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- RECAUDO -->
-            <div class="mb-3">
-                <h5>Total Recaudado: $ <span id="totalRecaudo">0</span></h5>
-            </div>
+                <!-- GRAFICAS -->
+                <div class="row g-3">
 
-            <!-- BUSCADOR -->
-            <div class="mb-3">
-                <input 
-                    type="text" 
-                    id="buscadorPagos" 
-                    class="form-control"
-                    placeholder="Buscar por cliente o referencia"
-                >
-            </div>
+                    <!-- Rentas por mes -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-3">
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-bar-chart"></i> Rentas por Mes
+                            </h6>
+                            <canvas id="graficaRentas"></canvas>
+                        </div>
+                    </div>
 
-            <!-- TABLA -->
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Renta</th>
-                            <th>Cliente</th>
-                            <th>Monto</th>
-                            <th>Método</th>
-                            <th>Referencia</th>
-                            <th>Fecha</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaPagos"></tbody>
-                </table>
-            </div>
+                    <!-- Ingresos por mes -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-3">
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-graph-up"></i> Ingresos por Mes
+                            </h6>
+                            <canvas id="graficaIngresos"></canvas>
+                        </div>
+                    </div>
 
-        </main>
+                </div>
 
-        <!-- FOOTER -->
-        <footer>
-            © 2026 Renta Express. Todos los derechos reservados.
-        </footer>
+            </main>
 
+            <!-- FOOTER -->
+            <footer>
+                © 2026 Renta Express. Todos los derechos reservados.
+            </footer>
+
+        </div>
     </div>
 
-</div>
-
-<!-- MODAL PAGOS -->
-<div class="modal fade" id="modalPago" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content modal-pago">
-
-      <div class="modal-body">
-
-        <h4 class="titulo-modal">Detalles Pago</h4>
-
-        <form id="formPago">
-
-          <div class="row">
-
-            <!-- RENTA -->
-            <div class="col-md-6 mb-3">
-              <label>Renta</label>
-              <input type="text" class="form-control input-pago" name="renta" required>
-            </div>
-
-            <!-- REFERENCIA -->
-            <div class="col-md-6 mb-3">
-              <label>Referencia Transacción</label>
-              <input type="text" class="form-control input-pago" name="referencia">
-            </div>
-
-            <!-- CLIENTE -->
-            <div class="col-md-6 mb-3">
-              <label>Cliente</label>
-              <input type="text" class="form-control input-pago" name="cliente" required>
-            </div>
-
-            <!-- MONTO -->
-            <div class="col-md-6 mb-3">
-              <label>Monto</label>
-              <input type="number" class="form-control input-pago" name="monto" required>
-            </div>
-
-            <!-- MÉTODO -->
-            <div class="col-md-6 mb-3">
-              <label>Método de Pago</label>
-              <select class="form-control input-pago" name="metodo">
-                <option>Efectivo</option>
-                <option>Transferencia</option>
-              </select>
-            </div>
-
-            <!-- FECHA -->
-            <div class="col-md-6 mb-3">
-              <label>Fecha Pago</label>
-              <input type="date" class="form-control input-pago" name="fecha" required>
-            </div>
-
-          </div>
-
-          <button class="btn btn-dark btn-guardar w-100">Guardar Pago</button>
-
-        </form>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- OVERLAY -->
-<div id="overlay" class="overlay"></div>
-
-<!-- JS -->
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/menu.js"></script>
-<script src="/js/pagos.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/reportes.js"></script>
 
 </body>
 </html>

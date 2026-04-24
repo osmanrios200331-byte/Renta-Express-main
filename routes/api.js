@@ -337,5 +337,45 @@ router.delete('/pagos/:id', async (req, res) => {
         res.status(500).json({ mensaje: error.message, detalle: error });
     }
 });
+// ==========================================
+// 5. REPORTES
+// ==========================================
+
+// Total de rentas por mes
+router.get('/reportes/rentas-por-mes', async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+                DATE_FORMAT(FechaInicio, '%Y-%m') AS Mes,
+                DATE_FORMAT(FechaInicio, '%M %Y') AS MesNombre,
+                COUNT(*) AS TotalRentas
+            FROM Rentas
+            GROUP BY Mes, MesNombre
+            ORDER BY Mes ASC
+        `);
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ mensaje: error.message });
+    }
+});
+
+// Ingresos totales por mes
+router.get('/reportes/ingresos-por-mes', async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+                DATE_FORMAT(FechaPago, '%Y-%m') AS Mes,
+                DATE_FORMAT(FechaPago, '%M %Y') AS MesNombre,
+                SUM(Monto) AS TotalIngresos,
+                COUNT(*) AS TotalPagos
+            FROM Pagos
+            GROUP BY Mes, MesNombre
+            ORDER BY Mes ASC
+        `);
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ mensaje: error.message });
+    }
+});
 
 module.exports = router;

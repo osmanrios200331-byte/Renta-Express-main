@@ -7,6 +7,10 @@ let rentasGlobal   = [];
 let clientesGlobal = [];
 let editandoId     = null;
 
+// ================= PAGINACIÓN =================
+const REGISTROS_POR_PAGINA = 10;
+let paginaActual = 1;
+
 // ================= HELPERS =================
 function obtenerNombreCliente(idCliente) {
     const c = clientesGlobal.find(c => c.IdCliente == idCliente);
@@ -34,6 +38,7 @@ async function obtenerPagos() {
     const data = await res.json();
 
     pagosGlobal = data;
+    paginaActual = 1;
     renderPagos(pagosGlobal);
     calcularRecaudo();
 }
@@ -57,8 +62,12 @@ function renderPagos(lista) {
     const tabla = document.getElementById("tablaPagos");
     tabla.innerHTML = "";
 
-    lista.forEach(p => {
-        // Obtener nombre del cliente a través de la renta
+    const totalPaginas = Math.ceil(lista.length / REGISTROS_POR_PAGINA);
+    const inicio = (paginaActual - 1) * REGISTROS_POR_PAGINA;
+    const fin = inicio + REGISTROS_POR_PAGINA;
+    const paginados = lista.slice(inicio, fin);
+
+    paginados.forEach(p => {
         const renta   = obtenerRenta(p.IdRenta);
         const cliente = renta ? obtenerNombreCliente(renta.IdCliente) : "N/A";
         const fecha   = p.FechaPago ? new Date(p.FechaPago).toLocaleDateString() : '';
@@ -72,12 +81,48 @@ function renderPagos(lista) {
                 <td>${p.ReferenciaTransaccion || "-"}</td>
                 <td>${fecha}</td>
                 <td>
-                    <button class="btn btn-sm btn-warning" onclick="editar(${p.IdPagos})">✏️</button>
-                    <button class="btn btn-sm btn-danger"  onclick="eliminar(${p.IdPagos})">🗑️</button>
+                    <button class="btn btn-sm btn-primary" onclick="editar(${p.IdPagos})"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminar(${p.IdPagos})"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
     });
+
+    renderPaginacion(totalPaginas);
+}
+
+// ================= PAGINACIÓN RENDER =================
+function renderPaginacion(totalPaginas) {
+    const ul = document.querySelector(".pagination");
+    if (!ul) return;
+
+    ul.innerHTML = `
+        <li class="page-item ${paginaActual === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual - 1}, event)">‹</a>
+        </li>
+    `;
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        ul.innerHTML += `
+            <li class="page-item ${i === paginaActual ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="cambiarPagina(${i}, event)">${i}</a>
+            </li>
+        `;
+    }
+
+    ul.innerHTML += `
+        <li class="page-item ${paginaActual === totalPaginas || totalPaginas === 0 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${paginaActual + 1}, event)">›</a>
+        </li>
+    `;
+}
+
+function cambiarPagina(pagina, event) {
+    event.preventDefault();
+    const totalPaginas = Math.ceil(pagosGlobal.length / REGISTROS_POR_PAGINA);
+    if (pagina < 1 || pagina > totalPaginas) return;
+    paginaActual = pagina;
+    renderPagos(pagosGlobal);
 }
 
 // ================= EDITAR =================
@@ -88,12 +133,11 @@ function editar(id) {
 
     editandoId = id;
 
-    document.getElementById("renta").value     = p.IdRenta || "";
-    document.getElementById("monto").value     = p.Monto || "";
-    document.getElementById("metodo").value    = p.MetodoPago || "";
+    document.getElementById("renta").value      = p.IdRenta || "";
+    document.getElementById("monto").value      = p.Monto || "";
+    document.getElementById("metodo").value     = p.MetodoPago || "";
     document.getElementById("referencia").value = p.ReferenciaTransaccion || "";
 
-    // Mostrar cliente
     const renta = obtenerRenta(p.IdRenta);
     document.getElementById("cliente").value = renta
         ? obtenerNombreCliente(renta.IdCliente)
@@ -139,7 +183,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await obtenerRentas();
     await obtenerPagos();
 
-    // Auto-rellenar cliente y monto al seleccionar renta
     document.getElementById("renta").addEventListener("change", function () {
         const r = obtenerRenta(this.value);
 
@@ -156,6 +199,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("buscadorPagos").addEventListener("input", function () {
         const valor = this.value.toLowerCase();
 
+        paginaActual = 1;
+
         const filtrados = pagosGlobal.filter(p => {
             const renta   = obtenerRenta(p.IdRenta);
             const cliente = renta ? obtenerNombreCliente(renta.IdCliente).toLowerCase() : "";
@@ -171,16 +216,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("formPago").addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const IdRenta              = document.getElementById("renta").value;
-        const Monto                = document.getElementById("monto").value;
-        const MetodoPago           = document.getElementById("metodo").value;
+        const IdRenta               = document.getElementById("renta").value;
+        const Monto                 = document.getElementById("monto").value;
+        const MetodoPago            = document.getElementById("metodo").value;
         const ReferenciaTransaccion = document.getElementById("referencia").value;
 
         if (!IdRenta) { alert("Selecciona una renta"); return; }
 
         const datos = { IdRenta, Monto: Number(Monto), MetodoPago, ReferenciaTransaccion };
-
-        console.log("📤 ENVIANDO:", datos);
 
         try {
             let res;
@@ -200,11 +243,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             const respuesta = await res.json();
-            console.log("📥 RESPUESTA:", respuesta);
 
             if (!res.ok) {
-                console.error("❌ ERROR BACKEND:", respuesta);
-                alert("❌ Error: " + respuesta.mensaje);
+                alert("Error: " + respuesta.mensaje);
                 return;
             }
 
@@ -212,11 +253,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             obtenerPagos();
 
         } catch (error) {
-            console.error("❌ Error al guardar:", error);
+            console.error("Error al guardar:", error);
         }
     });
 
-    // Abrir modal desde URL ?renta=X (viene de rentas.js)
     const params = new URLSearchParams(window.location.search);
     const rentaParam = params.get("renta");
 
@@ -228,6 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // ================= GLOBAL =================
-window.editar        = editar;
-window.eliminar      = eliminar;
+window.editar         = editar;
+window.eliminar       = eliminar;
 window.abrirModalPago = abrirModalPago;
+window.cambiarPagina  = cambiarPagina;

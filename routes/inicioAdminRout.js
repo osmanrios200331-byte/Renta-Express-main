@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Middleware de protección (opcional pero PRO 🔥)
+// Middleware de protección (opcional)
 function verificarSesion(req, res, next) {
     if (!req.session.user) {
         return res.redirect('/login');

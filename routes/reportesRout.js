@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// 🔐 Verificar sesión
+//  Verificar sesión
 function verificarSesion(req, res, next) {
     if (!req.session.user) return res.redirect('/');
     next();

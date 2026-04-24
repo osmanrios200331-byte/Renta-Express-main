@@ -5,176 +5,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- CSS propio -->
     <link rel="stylesheet" href="/css/stylesadmin.css">
-        <link rel="stylesheet" href="/css/stylesinicio.css">
+    <link rel="stylesheet" href="/css/stylesinicio.css">
 </head>
 
 <body>
 
-<div class="main-container">
+    <div class="main-container">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
 
-        <div class="logo">
-            <img src="/img/logoOscuro.png" alt="logo">
-        </div>
 
-        <nav>
-            <a href="/inicioAdmin" class="nav-item "><i class="bi bi-house-door"></i> Inicio</a>
-                <a href="/clientes" class="nav-item active" ><i class="bi bi-people"></i>  Clientes</a>
+            <div class="logo">
+                <img src="/img/logoOscuro.png" alt="logo">
+            </div>
+
+            <nav>
+                <a href="/inicioAdmin" class="nav-item "><i class="bi bi-house-door"></i> Inicio</a>
+                <a href="/clientes" class="nav-item active"><i class="bi bi-people"></i> Clientes</a>
                 <a href="/vehiculos" class="nav-item "><i class="bi bi-truck"></i> Vehículos</a>
                 <a href="/rentas" class="nav-item "><i class="bi bi-file-earmark-text"></i> Rentas</a>
                 <a href="/pagos" class="nav-item "><i class="bi bi-coin"></i> Pagos</a>
                 <a href="/reportes" class="nav-item "> <i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
-        </nav>
+            </nav>
 
-    </aside>
+        </aside>
 
-    <!-- CONTENIDO -->
-    <div class="content">
+        <!-- CONTENIDO -->
+        <div class="content">
 
-        <!-- HEADER -->
-        <header class="topbar">
-            <button id="menuToggle" class="menu-btn">☰</button>
+            <!-- HEADER -->
+            <header class="topbar">
+                <button id="menuToggle" class="menu-btn">☰</button>
 
-            <div class="user" id="userMenu">
-                <img src="/img/logoClaro.png" alt="user">
+                <div class="user" id="userMenu">
+                    <img src="/img/logoClaro.png" alt="user">
 
-                <div class="dropdown" id="dropdownMenu">
-                    <button id="perfilBtn">👤 Mi perfil</button>
-                    <button id="configBtn">⚙️ Configuración</button>
-                    <button id="logoutBtn">🚪 Cerrar sesión</button>
+                    <div class="dropdown" id="dropdownMenu">
+                        <button id="perfilBtn">👤 Mi perfil</button>
+                        <button id="configBtn">⚙️ Configuración</button>
+                        <button id="logoutBtn">🚪 Cerrar sesión</button>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <!-- MAIN -->
-        <main class="dashboard">
+            <!-- MAIN -->
+            <main class="dashboard">
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2>Gestión de Clientes</h2>
-                    <p>Administra y consulta la información de los clientes registrados.</p>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h2>Gestión de Clientes</h2>
+                        <p>Administra y consulta la información de los clientes registrados.</p>
+                    </div>
+
+                    <button class="btn btn-warning" onclick="abrirModal()">
+                        + Nuevo Cliente
+                    </button>
                 </div>
 
-                <button class="btn btn-warning" onclick="abrirModal()">
-                    + Nuevo Cliente
-                </button>
+                <!-- BUSCADOR -->
+                <div class="mb-3">
+                    <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre o documento">
+                </div>
+
+                <!-- TABLA -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tipo Doc</th>
+                                <th>Documento</th>
+                                <th>Nombre Completo</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Licencia</th>
+                                <th>Fecha Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaClientes"></tbody>
+                    </table>
+                </div>
+
+            </main>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <small id="infoTabla"></small>
+                <nav>
+                    <ul class="pagination mb-0">
+                    </ul>
+                </nav>
             </div>
 
-            <!-- BUSCADOR -->
-            <div class="mb-3">
-                <input 
-                    type="text" 
-                    id="buscador" 
-                    class="form-control"
-                    placeholder="Buscar por nombre o documento"
-                >
-            </div>
-
-            <!-- TABLA -->
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Tipo Doc</th>
-                            <th>Documento</th>
-                            <th>Nombre Completo</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Licencia</th>
-                            <th>Fecha Registro</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaClientes"></tbody>
-                </table>
-            </div>
-
-        </main>
-
-        <!-- FOOTER -->
-        <footer>
-            © 2026 Renta Express. Todos los derechos reservados.
-        </footer>
-
-    </div>
-
-</div>
-
-<!-- MODAL -->
-<div class="modal fade" id="modalCliente" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content p-3">
-
-      <h4 class="text-center mb-3">Detalles Cliente</h4>
-
-      <form id="formCliente">
-
-        <div class="row">
-
-          <div class="col-md-6 mb-2">
-            <label>Tipo Documento</label>
-            <select class="form-control" name="TipoDocumento" required>
-              <option value="">Seleccione</option>
-              <option value="CC">CC</option>
-              <option value="TI">TI</option>
-              <option value="CE">CE</option>
-              <option value="PP">PP</option>
-            </select>
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <label>Email</label>
-            <input type="email" class="form-control" name="Email">
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <label>Documento</label>
-            <input type="text" class="form-control" name="Documento" required>
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <label>Licencia</label>
-            <input type="text" class="form-control" name="Licencia">
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <label>Nombre Completo</label>
-            <input type="text" class="form-control" name="NombreCompleto" required>
-          </div>
-
-          <div class="col-md-6 mb-2">
-            <label>Teléfono</label>
-            <input type="text" class="form-control" name="Telefono">
-          </div>
+            <!-- FOOTER -->
+            <footer>
+                © 2026 Renta Express. Todos los derechos reservados.
+            </footer>
 
         </div>
 
-        <button class="btn btn-dark w-100 mt-3" type="submit">
-          Guardar
-        </button>
-
-      </form>
-
     </div>
-  </div>
-</div>
 
-<!-- OVERLAY -->
-<div id="overlay" class="overlay"></div>
+    <!-- MODAL -->
+    <div class="modal fade" id="modalCliente" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
 
-<!-- JS -->
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/menu.js"></script>
-<script src="/js/clientes.js"></script>
+                <h4 class="text-center mb-3">Detalles Cliente</h4>
+
+                <form id="formCliente">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-2">
+                            <label>Tipo Documento</label>
+                            <select class="form-control" name="TipoDocumento" required>
+                                <option value="">Seleccione</option>
+                                <option value="CC">CC</option>
+                                <option value="TI">TI</option>
+                                <option value="CE">CE</option>
+                                <option value="PP">PP</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="Email">
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label>Documento</label>
+                            <input type="text" class="form-control" name="Documento" required>
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label>Licencia</label>
+                            <input type="text" class="form-control" name="Licencia">
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label>Nombre Completo</label>
+                            <input type="text" class="form-control" name="NombreCompleto" required>
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label>Teléfono</label>
+                            <input type="text" class="form-control" name="Telefono">
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-dark w-100 mt-3" type="submit">
+                        Guardar
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- JS -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/clientes.js"></script>
 
 </body>
+
 </html>

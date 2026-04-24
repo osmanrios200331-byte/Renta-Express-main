@@ -2,269 +2,273 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehículos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehículos</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-  
 
-    <!-- CSS propio -->
-    <link rel="stylesheet" href="/css/stylesVehiculo.css">
-    <link rel="stylesheet" href="/css/stylesadmin.css">
-    <link rel="stylesheet" href="/css/stylesinicio.css">
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="/css/stylesVehiculo.css">
+  <link rel="stylesheet" href="/css/stylesadmin.css">
+  <link rel="stylesheet" href="/css/stylesinicio.css">
 </head>
 
 <body>
 
-<div class="main-container">
+  <div class="main-container">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="logo">
-            <img src="/img/logoOscuro.png" alt="logo">
-        </div>
+      <div class="logo">
+        <img src="/img/logoOscuro.png" alt="logo">
+      </div>
 
-        <nav>
-            <a href="/inicioAdmin" class="nav-item "><i class="bi bi-house-door"></i> Inicio</a>
-            <a href="/clientes" class="nav-item"><i class="bi bi-people"></i> Clientes</a>
-            <a href="/vehiculos" class="nav-item active"><i class="bi bi-truck"></i> Vehículos</a>
-            <a href="/rentas" class="nav-item"><i class="bi bi-file-earmark-text"></i> Rentas</a>
-            <a href="/pagos" class="nav-item"><i class="bi bi-coin"></i> Pagos</a>
-            <a href="/reportes" class="nav-item"><i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
-        </nav>
+      <nav>
+        <a href="/inicioAdmin" class="nav-item "><i class="bi bi-house-door"></i> Inicio</a>
+        <a href="/clientes" class="nav-item"><i class="bi bi-people"></i> Clientes</a>
+        <a href="/vehiculos" class="nav-item active"><i class="bi bi-truck"></i> Vehículos</a>
+        <a href="/rentas" class="nav-item"><i class="bi bi-file-earmark-text"></i> Rentas</a>
+        <a href="/pagos" class="nav-item"><i class="bi bi-coin"></i> Pagos</a>
+        <a href="/reportes" class="nav-item"><i class="bi bi-file-earmark-bar-graph"></i> Reportes</a>
+      </nav>
     </aside>
 
     <!-- CONTENIDO -->
     <div class="content">
 
-        <!-- HEADER -->
-        <header class="topbar">
-            <button id="menuToggle" class="menu-btn">☰</button>
+      <!-- HEADER -->
+      <header class="topbar">
+        <button id="menuToggle" class="menu-btn">☰</button>
 
-            <div class="user" id="userMenu">
-                <img src="/img/logoClaro.png" alt="user">
+        <div class="user" id="userMenu">
+          <img src="/img/logoClaro.png" alt="user">
 
-                <div class="dropdown" id="dropdownMenu">
-                    <button>👤 Mi perfil</button>
-                    <button>⚙️ Configuración</button>
-                    <button id="logoutBtn">🚪 Cerrar sesión</button>
-                </div>
-            </div>
-        </header>
-
-        <!-- MAIN -->
-        <main class="dashboard">
-
-            <!-- TITULO -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2>Gestión de Vehículos</h2>
-                    <p>Administra y controla la flota de vehículos.</p>
-                </div>
-
-                <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#modalNuevoVehiculo">
-                    + Nuevo Vehículo
-                </button>
-            </div>
-
-            <!-- TARJETAS (CORREGIDAS) -->
-            <div class="cards-vehiculos mb-3">
-
-                <div class="card-box total">
-                    <h3 id="totalVehiculos">0</h3>
-                    <p>Vehículos</p>
-                </div>
-
-                <div class="card-box disponible">
-                    <h3 id="vehiculosDisponibles">0</h3>
-                    <p>Disponibles</p>
-                </div>
-
-                <div class="card-box rentado">
-                    <h3 id="vehiculosRentados">0</h3>
-                    <p>Rentados</p>
-                </div>
-
-                <div class="card-box mantenimiento">
-                    <h3 id="vehiculosMantenimiento">0</h3>
-                    <p>Mantenimiento</p>
-                </div>
-
-                <div class="card-box inactivo">
-                    <h3 id="vehiculosInactivos">0</h3>
-                    <p>Inactivos</p>
-                </div>
-
-            </div>
-
-            <!-- BUSCADOR -->
-            <div class="search-bar mb-3">
-                <div class="search-container">
-                    <i class="bi bi-search"></i>
-                    <input 
-                        type="text" 
-                        id="buscadorVehiculos" 
-                        placeholder="Buscar por placa, modelo o marca"
-                    >
-                </div>
-
-                <button class="btn-filtrar">
-                    <i class="bi bi-funnel"></i> Filtrar
-                </button>
-            </div>
-
-            <!-- TABLA -->
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Placa</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Año</th>
-                            <th>Color</th>
-                            <th>Tipo</th>
-                            <th>Transmisión</th>
-                            <th>Tarifa Diaria</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaVehiculos"></tbody>
-                </table>
-            </div>
-
-        </main>
-
-        <!-- FOOTER -->
-        <footer>
-            © 2026 Renta Express. Todos los derechos reservados.
-        </footer>
-
-    </div>
-
-</div>
-
-<!-- OVERLAY -->
-<div id="overlay" class="overlay"></div>
-
-<!-- MODAL -->
-<div class="modal fade" id="modalNuevoVehiculo" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-
-      <form id="formVehiculo">
-
-        <div class="modal-header">
-          <h5 class="modal-title">Detalles Vehículo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="row g-3">
-
-            <div class="col-md-6">
-              <label>Placa</label>
-              <input type="text" class="form-control" name="placa" required>
-            </div>
-
-            <div class="col-md-6">
-              <label>Transmisión</label>
-              <select class="form-select" name="transmision">
-                <option value="">Seleccionar</option>
-                <option>Manual</option>
-                <option>Automático</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label>Marca</label>
-              <input type="text" class="form-control" name="marca" required>
-            </div>
-
-            <div class="col-md-6">
-              <label>Combustible</label>
-              <select class="form-select" name="combustible">
-                <option value="">Seleccionar</option>
-                <option>Gasolina</option>
-                <option>Diesel</option>
-                <option>Eléctrico</option>
-                <option>Híbrido</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label>Modelo</label>
-              <input type="text" class="form-control" name="modelo" required>
-            </div>
-
-            <div class="col-md-6">
-              <label>Tarifa Diaria</label>
-              <input type="number" class="form-control" name="tarifaDiaria">
-            </div>
-
-            <div class="col-md-6">
-              <label>Año</label>
-              <input type="number" class="form-control" name="anio">
-            </div>
-
-            <div class="col-md-6">
-              <label>Estado</label>
-              <select class="form-select" name="estado">
-                <option value="">Seleccionar</option>
-                <option>Disponible</option>
-                <option>Rentado</option>
-                <option>Mantenimiento</option>
-                <option>Inactivo</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label>Color</label>
-              <input type="text" class="form-control" name="color">
-            </div>
-
-            
-
-            <div class="col-md-6">
-              <label>Tipo Vehículo</label>
-              <select class="form-select" name="tipoVehiculo">
-                <option value="">Seleccionar</option>
-                <option>Sedán</option>
-                <option>SUV</option>
-                <option>Camioneta</option>
-                <option>Moto</option>
-              </select>
-            </div>
-
+          <div class="dropdown" id="dropdownMenu">
+            <button>👤 Mi perfil</button>
+            <button>⚙️ Configuración</button>
+            <button id="logoutBtn">🚪 Cerrar sesión</button>
           </div>
         </div>
+      </header>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cancelar
-          </button>
+      <!-- MAIN -->
+      <main class="dashboard">
 
-          <button type="submit" class="btn btn-warning">
-            Guardar
+        <!-- TITULO -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2>Gestión de Vehículos</h2>
+            <p>Administra y controla la flota de vehículos.</p>
+          </div>
+
+          <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#modalNuevoVehiculo">
+            + Nuevo Vehículo
           </button>
         </div>
 
-      </form>
+        <!-- TARJETAS (CORREGIDAS) -->
+        <div class="cards-vehiculos mb-3">
+
+          <div class="card-box total">
+            <h3 id="totalVehiculos">0</h3>
+            <p>Vehículos</p>
+          </div>
+
+          <div class="card-box disponible">
+            <h3 id="vehiculosDisponibles">0</h3>
+            <p>Disponibles</p>
+          </div>
+
+          <div class="card-box rentado">
+            <h3 id="vehiculosRentados">0</h3>
+            <p>Rentados</p>
+          </div>
+
+          <div class="card-box mantenimiento">
+            <h3 id="vehiculosMantenimiento">0</h3>
+            <p>Mantenimiento</p>
+          </div>
+
+          <div class="card-box inactivo">
+            <h3 id="vehiculosInactivos">0</h3>
+            <p>Inactivos</p>
+          </div>
+
+        </div>
+
+        <!-- BUSCADOR -->
+        <div class="search-bar mb-3">
+          <div class="search-container">
+            <i class="bi bi-search"></i>
+            <input type="text" id="buscadorVehiculos" placeholder="Buscar por placa, modelo o marca">
+          </div>
+
+          <button class="btn-filtrar">
+            <i class="bi bi-funnel"></i> Filtrar
+          </button>
+        </div>
+
+        <!-- TABLA -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Color</th>
+                <th>Tipo</th>
+                <th>Transmisión</th>
+                <th>Tarifa Diaria</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaVehiculos"></tbody>
+          </table>
+        </div>
+
+      </main>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <small id="infoTabla">0 registros</small>
+        <nav>
+          <ul class="pagination mb-0">
+          </ul>
+        </nav>
+      </div>
+
+      <!-- FOOTER -->
+      <footer>
+        © 2026 Renta Express. Todos los derechos reservados.
+      </footer>
 
     </div>
-  </div>
-</div>
 
-<!-- JS -->
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/menu.js"></script>
-<script src="/js/vehiculos.js"></script>
+  </div>
+
+  <!-- OVERLAY -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- MODAL -->
+  <div class="modal fade" id="modalNuevoVehiculo" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+
+        <form id="formVehiculo">
+
+          <div class="modal-header">
+            <h5 class="modal-title">Detalles Vehículo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label>Placa</label>
+                <input type="text" class="form-control" name="placa" required>
+              </div>
+
+              <div class="col-md-6">
+                <label>Transmisión</label>
+                <select class="form-select" name="transmision">
+                  <option value="">Seleccionar</option>
+                  <option>Manual</option>
+                  <option>Automático</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label>Marca</label>
+                <input type="text" class="form-control" name="marca" required>
+              </div>
+
+              <div class="col-md-6">
+                <label>Combustible</label>
+                <select class="form-select" name="combustible">
+                  <option value="">Seleccionar</option>
+                  <option>Gasolina</option>
+                  <option>Diesel</option>
+                  <option>Eléctrico</option>
+                  <option>Híbrido</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label>Modelo</label>
+                <input type="text" class="form-control" name="modelo" required>
+              </div>
+
+              <div class="col-md-6">
+                <label>Tarifa Diaria</label>
+                <input type="number" class="form-control" name="tarifaDiaria">
+              </div>
+
+              <div class="col-md-6">
+                <label>Año</label>
+                <input type="number" class="form-control" name="anio">
+              </div>
+
+              <div class="col-md-6">
+                <label>Estado</label>
+                <select class="form-select" name="estado">
+                  <option value="">Seleccionar</option>
+                  <option>Disponible</option>
+                  <option>Rentado</option>
+                  <option>Mantenimiento</option>
+                  <option>Inactivo</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label>Color</label>
+                <input type="text" class="form-control" name="color">
+              </div>
+
+
+
+              <div class="col-md-6">
+                <label>Tipo Vehículo</label>
+                <select class="form-select" name="tipoVehiculo">
+                  <option value="">Seleccionar</option>
+                  <option>Sedán</option>
+                  <option>SUV</option>
+                  <option>Camioneta</option>
+                  <option>Moto</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+
+            <button type="submit" class="btn btn-warning">
+              Guardar
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/menu.js"></script>
+  <script src="/js/vehiculos.js"></script>
 
 </body>
+
 </html>
