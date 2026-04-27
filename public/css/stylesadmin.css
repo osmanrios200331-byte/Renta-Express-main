@@ -12,6 +12,7 @@ html, body {
 .main-container {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 /* ===== SIDEBAR ===== */
@@ -22,7 +23,8 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 20px;
- 
+  height: 100vh;
+  flex-shrink: 0;
 }
 
 .sidebar.show {
@@ -36,12 +38,11 @@ html, body {
 /* LOGO */
 .logo {
   text-align: center;
-  margin-bottom: 10px; /* 🔥 ESTE ES EL PROBLEMA */
+  margin-bottom: 10px;
 }
 
 .logo img {
   width: 140px;
-  
 }
 
 /* NAV */
@@ -56,11 +57,11 @@ html, body {
 }
 
 .nav-item:hover {
-  background-color: #030c20;
+  background-color: #f4a62a;
 }
 
 .nav-item.active {
-  background-color: #030c20;
+  background-color: #f4a62a;
 }
 
 /* LOGOUT */
@@ -76,7 +77,8 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 /* ===== HEADER ===== */
@@ -87,6 +89,7 @@ html, body {
   display: flex;
   align-items: center;
   padding: 0 20px;
+  flex-shrink: 0;
 }
 
 /* BOTÓN HAMBURGUESA */
@@ -136,7 +139,6 @@ html, body {
   z-index: 1000;
 }
 
-/* 🔥 BOTONES (CORREGIDO) */
 .dropdown button {
   width: 100%;
   padding: 12px;
@@ -167,7 +169,7 @@ html, body {
 /* ===== MAIN ===== */
 .dashboard {
   flex: 1;
-  text-align: center;
+  text-align: left;
   padding: 40px;
 }
 
@@ -191,6 +193,7 @@ footer {
   padding: 15px;
   background-color: #030c20;
   color: white;
+  flex-shrink: 0;
 }
 
 /* ===== OVERLAY ===== */
@@ -214,14 +217,23 @@ footer {
 
   .main-container {
     flex-direction: column;
+    height: auto;
+    overflow: visible;
   }
 
   .sidebar {
     display: none;
+    height: auto;
   }
 
   .sidebar.show {
     display: flex;
+    height: 100%;
+  }
+
+  .content {
+    height: auto;
+    overflow-y: visible;
   }
 
   .menu-btn {
@@ -250,8 +262,7 @@ footer {
   }
 }
 
-/* ===== CLIENTES (AGREGADO) ===== */
-
+/* ===== CLIENTES ===== */
 .clientes-header {
   display: flex;
   justify-content: space-between;
@@ -410,17 +421,17 @@ footer {
   color: white;
   border: none;
 }
- .btn-orange {
-    background-color: #f4a62a;
-    color: white;
-    border-radius: 12px;
+
+.btn-orange {
+  background-color: #f4a62a;
+  color: white;
+  border-radius: 12px;
 }
 
 .btn-orange:hover {
-    background-color: #e6951f;
-}
-.sidebar .nav-item:hover {
-    background-color: #f4a62a;
+  background-color: #e6951f;
 }
 
-  
+.sidebar .nav-item:hover {
+  background-color: #f4a62a;
+}

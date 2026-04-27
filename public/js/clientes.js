@@ -4,7 +4,7 @@ let editandoId = null;
 let clientesGlobal = [];
 
 // ================= PAGINACIÓN =================
-const REGISTROS_POR_PAGINA = 10;
+const REGISTROS_POR_PAGINA = 5;
 let paginaActual = 1;
 
 // ================= OBTENER CLIENTES =================

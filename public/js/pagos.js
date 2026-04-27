@@ -8,7 +8,7 @@ let clientesGlobal = [];
 let editandoId     = null;
 
 // ================= PAGINACIÓN =================
-const REGISTROS_POR_PAGINA = 10;
+const REGISTROS_POR_PAGINA = 3;
 let paginaActual = 1;
 
 // ================= HELPERS =================

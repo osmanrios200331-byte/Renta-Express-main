@@ -4,7 +4,7 @@ let editandoId = null;
 let vehiculosGlobal = [];
 
 // ================= PAGINACIÓN =================
-const REGISTROS_POR_PAGINA = 10;
+const REGISTROS_POR_PAGINA = 6;
 let paginaActual = 1;
 
 // ================= OBTENER =================
@@ -43,11 +43,11 @@ function renderVehiculos(lista) {
                 <td>${v.Color || ''}</td>
                 <td>${v.TipoVehiculo || ''}</td>
                 <td>${v.Transmision || ''}</td>
-                <td>${v.TarifaDiaria || ''}</td>
+                <td>${v.TarifaDiaria ? Number(v.TarifaDiaria).toLocaleString('es-CO') : ''}</td>
                 <td>${v.Estado || ''}</td>
                 <td>
                     <button class="btn btn-sm" style="background:#0d6efd; color:white;" onclick="editar(${v.IdVehiculos})"><i class="bi bi-pencil-square"></i></button>
-<button class="btn btn-sm" style="background:#dc3545; color:white;" onclick="eliminar(${v.IdVehiculos})"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-sm" style="background:#dc3545; color:white;" onclick="eliminar(${v.IdVehiculos})"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
@@ -230,4 +230,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================= GLOBAL =================
 window.editar        = editar;
 window.eliminar      = eliminar;
-window.cambiarPagina = cambiarPagina;   
+window.cambiarPagina = cambiarPagina;

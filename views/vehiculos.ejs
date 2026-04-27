@@ -61,7 +61,7 @@
       <main class="dashboard">
 
         <!-- TITULO -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-1">
           <div>
             <h2>Gestión de Vehículos</h2>
             <p>Administra y controla la flota de vehículos.</p>
@@ -133,16 +133,19 @@
             </thead>
             <tbody id="tablaVehiculos"></tbody>
           </table>
+          <!-- PAGINACIÓN -->
         </div>
+        <div class="d-flex justify-content-end align-items-center mt-3">
+          <small id="infoTabla"></small>
+    <nav>
+        <ul class="pagination mb-0">
+        </ul>
+    </nav>
+</div>
 
       </main>
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <small id="infoTabla">0 registros</small>
-        <nav>
-          <ul class="pagination mb-0">
-          </ul>
-        </nav>
-      </div>
+      
+
 
       <!-- FOOTER -->
       <footer>
